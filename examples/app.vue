@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a v-for="page in pages" :key="page" :href="page" target="view_window">{{ page }}</a>
+    <a v-for="page in pages" :key="page" :href="page">{{ page }}</a>
   </div>
 </template>
 
