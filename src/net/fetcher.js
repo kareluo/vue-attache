@@ -1,3 +1,4 @@
+import { invoke } from '../utils/invoke'
 
 // request, { method, url, params, headers }
 const defaults = {
@@ -61,8 +62,25 @@ export default class Fetcher {
     return this._fetch(request)
   }
 
-  response(response) {
-    response
+  response(res, { component, response, result, success, failure, error }) {
+    invoke(component, (response || this._response), res)
+    .then(({ success = false, data }) => {
+      if (success) {
+        return invoke(component, (result || this._result), data)
+      } else {
+        return Promise.reject('xass')
+      }
+    })
+    .then(({ success: s = false, data }) => {
+      if (s) {
+        return invoke(component, (success || this._success), data)
+      } else {
+        return invoke(component, (failure || this._failure), data)
+      }
+    })
+    .catch(({}) => {
+      
+    })
   }
   
   use({ fetch, response,  }) {

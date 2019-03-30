@@ -1,5 +1,6 @@
 /* eslint-disable */
 import Attache from '../index'
+import Fetcher from './fetcher';
 
 const BaseApiAttacheConfig = {
   loading: false,
@@ -75,6 +76,8 @@ export default class ApiAttacheConfig {
       failure,
       error,
     } = this.config
+
+    Fetcher.prototype.response.call(component.$attache, res, { component, response, result, success, failure, error })
 
     // TODO
 

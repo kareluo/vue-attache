@@ -22,8 +22,18 @@ export default {
       })
     },
     response(response) {
-      console.log(response)
+      console.log(response, response)
+      return 'hahahahah'
     },
+    result(data) {
+      console.log('result', data)
+    },
+    success(data) {
+      console.log('success', data)
+    },
+    failure(data) {
+      console.log('failure', data)
+    }
   }],
   methods: {
   },
