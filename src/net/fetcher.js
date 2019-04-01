@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { invoke } from '../utils/invoke'
 
 // request, { method, url, params, headers }
@@ -15,12 +16,12 @@ const defaults = {
     }
     return res
   },
-
-  defaultSuccessResponse({ data, onSuccess, onFailure, result }) {
+  // { data, onSuccess, onFailure, result }
+  defaultSuccessResponse() {
     throw '没有处理网络请求'
   },
 
-  defaultFailureResponse(args) {
+  defaultFailureResponse() {
     console.warn('没有处理网络请求错误')
   },
 
@@ -58,32 +59,31 @@ export default class Fetcher {
   }
 
   fetch(request) {
-    console.log('request', request)
     return this._fetch(request)
   }
 
-  response(res, { component, response, result, success, failure, error }) {
-    invoke(component, (response || this._response), res)
+  response(res, { component, response, result, success, failure }) {
+    console.log('response:', res)
+    return invoke(component, (response || this._response), res)
     .then(({ success = false, data }) => {
+      console.log('result', success, data)
       if (success) {
         return invoke(component, (result || this._result), data)
       } else {
         return Promise.reject('xass')
       }
     })
-    .then(({ success: s = false, data }) => {
-      if (s) {
+    .then(({ success: succ = false, data }) => {
+      console.log('success', succ, data)
+      if (succ) {
         return invoke(component, (success || this._success), data)
       } else {
         return invoke(component, (failure || this._failure), data)
       }
     })
-    .catch(({}) => {
-      
-    })
   }
   
-  use({ fetch, response,  }) {
+  use({ fetch }) {
     this.fetch = fetch
   }
 }

@@ -77,10 +77,10 @@ export default class ApiAttacheConfig {
       error,
     } = this.config
 
+    // TODO
     Fetcher.prototype.response.call(component.$attache, res, { component, response, result, success, failure, error })
 
     // TODO
-
     if (response) {
       await invoke(component, response, [res])
     }

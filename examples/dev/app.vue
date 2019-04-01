@@ -22,11 +22,16 @@ export default {
       })
     },
     response(response) {
-      console.log(response, response)
-      return 'hahahahah'
+      return {
+        success: response.status === 200,
+        data: response.data
+      }
     },
     result(data) {
-      console.log('result', data)
+      return {
+        success: data.success,
+        data: data.data
+      }
     },
     success(data) {
       console.log('success', data)
