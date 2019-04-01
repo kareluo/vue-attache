@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    {{ word }}
+    {{ message }}
   </div>
 </template>
 
@@ -11,11 +11,13 @@ export default {
   data() {
     return {
       word: '',
+      message: '',
     }
   },
   attaches: [{
     url: '/hello',
     trigger: 'hello',
+    datanames: ['message'],
     data(a, b, c) {
       return new Promise((resolve, reject) => {
         resolve({ a: 'hello' })
@@ -33,11 +35,12 @@ export default {
         data: data.data
       }
     },
-    success(data) {
-      console.log('success', data)
-    },
+    // success(data) {
+    //   return data
+    // },
     failure(data) {
       console.log('failure', data)
+      return data
     }
   }],
   methods: {
