@@ -1,40 +1,35 @@
 import { install } from './install'
+import Config, { use } from './net/config'
 import ApiAttache from './net/ApiAttache'
-import Fetcher, { fetcher as defaultFetcher } from './net/Fetcher';
 
 export default class Attache {
-  
-  constructor({ attaches, fetcher }) {
-    this.configs = []
-    this.attaches = attaches
-    this.fetcher = fetcher || defaultFetcher
+
+  constructor({ configs, config }) {
+    this.configs = configs
+    this.config = Object.assign(Object.create(Config), config)
+    this.attaches = []
   }
 
-  setAttaches(attaches) {
+  setConfigs(configs) {
     // TODO 清理attaches
-    this.attaches = attaches
+    this.configs = configs
   }
 
   setup(component) {
-    if (!this.attaches) return
-    this.attaches.forEach(attache => {
-      const config = new ApiAttache(attache)
-      config.setup(component)
-      this.configs.push(config)
+    if (!this.configs) return
+    this.configs.forEach(cfg => {
+      const config = Object.assign(Object.create(this.config), cfg)
+      const attache = new ApiAttache(config)
+      attache.setup(component)
+      this.attaches.push(attache)
     })
   }
 
-  fetch(request) {
-    return this.fetcher.fetch(request)
-  }
-
-  use(methods) {
-    this.fetcher.use(methods)
+  use(config) {
+    Object.assign(this.config, config)
   }
 }
 
-Attache.fetch = fetch
+Attache.use = use
 
 Attache.install = install
-
-Attache.use = Fetcher.use

@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "*"
+    "url": "git@github.com:kareluo/vue-attache.git"
   },
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -14,7 +14,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "vue"
+    "vue", "vue-attache"
   ],
   "author": "Felix Zhang",
   "license": "MIT",

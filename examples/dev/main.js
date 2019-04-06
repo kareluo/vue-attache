@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from 'vue'
 import App from './app.vue'
 import VueAttache from 'vue-attache'
@@ -11,9 +12,13 @@ VueAttache.use({
       method,
       params: data
     })
+  },
+  result(data) {
+    return {
+      success: data.success,
+      data: data.data
+    }
   }
 })
 
-new Vue({
-  render: h => h(App)
-}).$mount('#app')
+new Vue({ render: h => h(App) }).$mount('#app')

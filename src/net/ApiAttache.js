@@ -1,44 +1,40 @@
 /* eslint-disable */
-import Attache from '../index'
-import Fetcher from './Fetcher'
 import { apply, invoke } from '../utils/invoke'
-
-const BaseApiAttacheConfig = {
-  loading: false,
-  method: 'get',
-  // data: object, function, promise
-  // url: string, function, promise
-  // trigger: ''
-  // filters: [],
-  onResult: function (result, onSuccessResult, onFailureResult) {
-    
-  }
-}
 
 export default class ApiAttache {
   constructor(config) {
-    this.config = Object.create(BaseApiAttacheConfig)
-    Object.assign(this.config, config)
+    this.config = config
   }
 
   setup(component) {
     this.component = component
     const { trigger } = this.config
     if (trigger && typeof trigger === 'string') {
-      const that = this
+      const trig = ApiAttache.prototype.trig
       const fn = component[trigger]
-      component[trigger] = function () {
-        ApiAttache.prototype.trig.apply(that, [this.component].concat(arguments))
-        if (fn) fn.apply(component, arguments)
+      const that = this
+      component[trigger] = async function () {
+        apply(that, trig, [component].concat(arguments))
+        .then(() => {
+          if (fn) {
+            fn.apply(component, arguments)
+          }
+        })
       }
     }
   }
 
-  trig(component = this.component, ...args) {
-    this.beforeFetch({ component, args })
-    .then(_ => this.fetch(_))
-    .then(_ => this.afterFetch(_))
-    .catch(this.error)
+  async trig(component = this.component, ...args) {
+    try {
+      await invoke(component, this.config.begin)
+      const a = await this.beforeFetch({ component, args })
+      const b = await this.fetch(a)
+      await this.afterFetch(b)
+      await invoke(component, this.config.end)
+    } catch (e) {
+      console.error(e)
+      // TODO      
+    }
   }
 
   async beforeFetch({ component = this.component, args }) {
@@ -48,62 +44,61 @@ export default class ApiAttache {
   }
 
   async fetch({ component = this.component, url, data }) {
-    const res = await invoke(component.$attache,
-      Attache.prototype.fetch, {
-        url,
-        data,
-        method: this.config.method
-      })
-    return { component, res }
+    const fetch = this.config.fetch
+    const response = await invoke(component, fetch, {
+      url,
+      data,
+      method: this.config.method
+    })
+    return { component, response }
   }
 
-  async afterFetch({ component = this.component, res }) {
-    const {
-      response,
-      result,
-      success,
-      failure,
-      error,
-    } = this.config
+  async afterFetch({ component = this.component, response }) {
+    const config = this.config
 
-    this.dispatch(res, { component, response, result, success, failure })
-    .then(result => {
-      console.log('return', result)
-      if (result) {
-        const datanames = this.config.datanames
-        if (datanames) {
-          if (Array.isArray(datanames)) {
-            datanames.forEach(name => {
-              component[name] = result[name]
-            })
-          } else if (typeof datanames === 'string') {
-            component[datanames] = result
-          }
+    const { success, data } = await invoke(component, config.response, response)
+    if (!success) {
+      throw response
+    }
+
+    const { success: succ, data: dat } = await invoke(component, config.result, data)
+
+    let result
+    if (succ) {
+      result = await invoke(component, config.success, dat)
+    } else {
+      result = await invoke(component, config.failure, dat)
+    }
+
+    if (result) {
+      const datanames = config.datanames
+      if (datanames) {
+        if (Array.isArray(datanames)) {
+          datanames.forEach(name => {
+            component[name] = result[name]
+          })
+        } else if (typeof datanames === 'string') {
+          component[datanames] = result
         }
       }
-    })
-    .catch(e => {
-      console.log(e)
-    })
+    }
   }
 
-  dispatch(res, { component, response, result, success, failure }) {
-    console.log('response:', res)
-    return invoke(component, (response || this._response), res)
-    .then(({ success = false, data }) => {
-      console.log('result', success, data)
+  process(component, response) {
+    const config = this.config
+    return invoke(component, config.response, response)
+    .then(({ success, data }) => {
       if (success) {
-        return invoke(component, (result || this._result), data)
+        return invoke(component, config.result, data)
       } else {
-        return Promise.reject('xass')
+        throw response
       }
     })
-    .then(({ success: succ = false, data }) => {
-      console.log('success', succ, data)
-      if (succ) {
-        return invoke(component, (success || this._success), data)
+    .then(({ success, data }) => {
+      if (success) {
+        return invoke(component, config.success, data)
       } else {
-        return invoke(component, (failure || this._failure), data)
+        return invoke(component, config.failure, data)
       }
     })
   }

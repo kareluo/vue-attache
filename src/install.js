@@ -6,9 +6,9 @@ export function install (Vue) {
   Vue.mixin({
     beforeCreate() {
       this._attache = new Attache({})
-      const attaches = this.$options.attaches
-      if (attaches && Array.isArray(attaches)) {
-        this._attache.setAttaches(attaches)
+      const configs = this.$options.configs
+      if (configs && Array.isArray(configs)) {
+        this._attache.setConfigs(configs)
       }
     },
     created() {
