@@ -18,11 +18,9 @@ export async function invoke(that, method, ...args) {
   while(true) {
     if (typeof result === 'function') {
       result = result.call(that, ...args)
-      // eslint-disable-next-line
     } else if (result instanceof Promise) {
       result = await result
     } else break
   }
-  // eslint-disable-next-line
   return result
 }

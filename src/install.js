@@ -1,7 +1,6 @@
 /* eslint-disable */
 import Attache from './index'
 
-
 export function install (Vue) {
   Vue.mixin({
     beforeCreate() {

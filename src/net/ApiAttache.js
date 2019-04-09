@@ -33,7 +33,7 @@ export default class ApiAttache {
       await invoke(component, this.config.end)
     } catch (e) {
       console.error(e)
-      // TODO      
+      // TODO
     }
   }
 
@@ -101,9 +101,5 @@ export default class ApiAttache {
         return invoke(component, config.failure, data)
       }
     })
-  }
-
-  error(e) {
-    console.error(e)
   }
 }

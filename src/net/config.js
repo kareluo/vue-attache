@@ -8,9 +8,14 @@ const config = {
   // filters: [],
 
   begin() {
-
+    // empty
   },
 
+  /**
+   * 拦截请求
+   * @param {*} data 
+   * return 是否拦截请求
+   */
   intercept(data) {
     return false
   },
@@ -47,7 +52,7 @@ const config = {
   },
 
   end() {
-
+    // empty
   },
 }
 
