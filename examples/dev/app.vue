@@ -21,8 +21,8 @@ export default {
     trigger: 'hello',
     dataname: 'message',
     datanames: [{
-      name: 'message',
-      key: 'message'
+      key: 'message',
+      value: 'message'
     }],
   }],
   methods: {

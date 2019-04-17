@@ -118,8 +118,8 @@ export default class ApiAttache {
         if (config.debug) {
           datanames.forEach(name => {
             if (typeof name === 'object') {
-              i('after-fetch-datanames:', `${name.name} <-`, dat[name.key])
-              component[name.name] = dat[name.key]
+              i('after-fetch-datanames:', `${name.key} <-`, dat[name.value])
+              component[name.key] = dat[name.value]
             } else {
               i('after-fetch-datanames:', `${name} <-`, dat[name])
               component[name] = dat[name]
@@ -128,7 +128,7 @@ export default class ApiAttache {
         } else {
           datanames.forEach(name => {
             if (typeof name === 'object') {
-              component[name.name] = dat[name.key]
+              component[name.key] = dat[name.value]
             } else {
               component[name] = dat[name]
             }
