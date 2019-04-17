@@ -6,6 +6,7 @@ import service from './utils/fetch'
 
 Vue.use(VueAttache)
 VueAttache.use({
+  debug: true,
   fetch({ url, method, data }) {
     return service({
       url,

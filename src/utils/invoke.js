@@ -1,5 +1,6 @@
 
 export async function apply(that, method, args) {
+  if (!method) return
   let result = method
   // eslint-disable-next-line
   while(true) {
@@ -13,6 +14,7 @@ export async function apply(that, method, args) {
 }
 
 export async function invoke(that, method, ...args) {
+  if (!method) return
   let result = method
   // eslint-disable-next-line
   while(true) {

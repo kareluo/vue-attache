@@ -1,15 +1,37 @@
 /* eslint-disable */
 const config = {
+
+  /**
+   * 是否输出调试信息
+   */
+  debug: false,
+
+  /**
+   * 请求 method
+   */
   method: 'get',
+
+  /**
+   * 是否显示 Loading
+   */
   loading: false,
+
   // data: object, function, promise
+
   // url: string, function, promise
+
   // trigger: ''
+
   // filters: [],
 
-  begin() {
-    // empty
-  },
+  // dataname: ''
+
+  // datanames: ''
+
+  /**
+   * trigger 触发后立即调用
+   */
+  // begin: function
 
   /**
    * 拦截请求
@@ -20,10 +42,18 @@ const config = {
     return false
   },
 
+  /**
+   * 网络请求，需要覆盖
+   * @param {*} request 
+   */
   fetch(request) {
     throw 'no implements'
   },
 
+  /**
+   * 网络请求回调
+   * @param {*} response 
+   */
   response(response) {
     if (response) {
       return {
@@ -34,23 +64,42 @@ const config = {
     return { success: false }
   },
 
+  /**
+   * 业务响应处理，需要覆盖来确定业务 success 或 failure
+   * @param {*} data 业务返回对象（具体结构因不同系统而定）
+   */
   result(data) {
     throw 'no implements'
   },
 
+  /**
+   * 业务成功
+   * @param {*} data 
+   */
   success(data) {
     return data
   },
 
+  /**
+   * 业务失败
+   * @param {*} data 
+   */
   failure(data) {
     return data
   },
 
+  /**
+   * 错误
+   * @param {*} param0 
+   */
   error({ message, e }) {
     console.log(message)
     console.error(e)
   },
 
+  /**
+   * 请求流程完成时调用，成功失败错误等都会调用
+   */
   end() {
     // empty
   },

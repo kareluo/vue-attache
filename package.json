@@ -1,8 +1,8 @@
 {
   "name": "vue-attache",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "An attache for Vue.js, network, and so on.",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:kareluo/vue-attache.git"

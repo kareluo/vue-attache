@@ -20,12 +20,6 @@ export default {
     url: '/hello',
     trigger: 'hello',
     datanames: ['message'],
-    begin() {
-      console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-    },
-    end() {
-      console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++')
-    }
   }],
   methods: {
   },

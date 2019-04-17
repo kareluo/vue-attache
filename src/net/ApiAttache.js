@@ -1,5 +1,13 @@
-/* eslint-disable */
+import { log, error } from '../utils/log'
 import { apply, invoke } from '../utils/invoke'
+
+function i(...messages) {
+  log('[api-attache]', ...messages)
+}
+
+function e(...errors) {
+  error('[api-attache]', ...errors)
+}
 
 export default class ApiAttache {
   constructor(config) {
@@ -13,11 +21,11 @@ export default class ApiAttache {
       const trig = ApiAttache.prototype.trig
       const fn = component[trigger]
       const that = this
-      component[trigger] = async function () {
-        apply(that, trig, [component].concat(arguments))
+      component[trigger] = async function (...args) {
+        apply(that, trig, [component].concat(args))
         .then(() => {
           if (fn) {
-            fn.apply(component, arguments)
+            fn.apply(component, args)
           }
         })
       }
@@ -25,15 +33,34 @@ export default class ApiAttache {
   }
 
   async trig(component = this.component, ...args) {
+    const debug = this.config.debug
     try {
+      if (debug) {
+        i('begin:', component)
+      }
       await invoke(component, this.config.begin)
+      
+      if (debug) {
+        i('before-fetch:', args)
+      }
       const a = await this.beforeFetch({ component, args })
+
+      if (debug) {
+        i('fetch:', a.url, a.data)
+      }
       const b = await this.fetch(a)
+
+      if (debug) {
+        i('after-fetch:', b.response)
+      }
       await this.afterFetch(b)
+
+      if (debug) {
+        i('end')
+      }
       await invoke(component, this.config.end)
     } catch (e) {
-      console.error(e)
-      // TODO
+      this.error(e)
     }
   }
 
@@ -45,11 +72,17 @@ export default class ApiAttache {
 
   async fetch({ component = this.component, url, data }) {
     const fetch = this.config.fetch
-    const response = await invoke(component, fetch, {
+    const request = {
       url,
       data,
-      method: this.config.method
-    })
+      method: this.config.method,
+      headers: this.config.headers
+    }
+
+    if (this.config.debug) {
+      i('fetch-request:', request)
+    }
+    const response = await invoke(component, fetch, request)
     return { component, response }
   }
 
@@ -57,49 +90,49 @@ export default class ApiAttache {
     const config = this.config
 
     const { success, data } = await invoke(component, config.response, response)
+
     if (!success) {
       throw response
     }
 
     const { success: succ, data: dat } = await invoke(component, config.result, data)
 
-    let result
     if (succ) {
-      result = await invoke(component, config.success, dat)
+      await invoke(component, config.success, dat)
     } else {
-      result = await invoke(component, config.failure, dat)
+      await invoke(component, config.failure, dat)
     }
 
-    if (result) {
-      const datanames = config.datanames
-      if (datanames) {
-        if (Array.isArray(datanames)) {
+    if (config.debug) {
+      i('after-fetch-data:', dat)
+    }
+    if (dat) {
+      const { dataname, datanames } = config
+      if (dataname) {
+        if (config.debug) {
+          i('after-fetch-dataname:', `${dataname} <-`, dat)
+        }
+        component[dataname] = dat
+      }
+      if (datanames && Array.isArray(datanames)) {
+        if (config.debug) {
           datanames.forEach(name => {
-            component[name] = result[name]
+            i('after-fetch-datanames:', `${name} <-`, dat)
+            component[name] = dat[name]
           })
-        } else if (typeof datanames === 'string') {
-          component[datanames] = result
+        } else {
+          datanames.forEach(name => {
+            component[name] = dat[name]
+          })
         }
       }
     }
   }
 
-  process(component, response) {
-    const config = this.config
-    return invoke(component, config.response, response)
-    .then(({ success, data }) => {
-      if (success) {
-        return invoke(component, config.result, data)
-      } else {
-        throw response
-      }
-    })
-    .then(({ success, data }) => {
-      if (success) {
-        return invoke(component, config.success, data)
-      } else {
-        return invoke(component, config.failure, data)
-      }
-    })
+  error(exception) {
+    if (this.config.debug) {
+      e(exception)
+    }
+    // TODO
   }
 }
