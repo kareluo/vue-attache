@@ -27,7 +27,6 @@ export default {
   }],
   methods: {
   },
-
   mounted() {
     this.hello(1, 2, 3)
   },

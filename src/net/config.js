@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { error } from '../utils/log'
+
 const config = {
 
   /**
@@ -89,20 +91,19 @@ const config = {
   },
 
   /**
-   * 错误
-   * @param {*} param0 
+   * 错误回调
+   * @param {*}
    */
-  error({ message, e }) {
-    console.log(message)
-    console.error(e)
+  error(e) {
+    if (config.debug) {
+      error(e)
+    }
   },
 
   /**
    * 请求流程完成时调用，成功失败错误等都会调用
    */
-  end() {
-    // empty
-  },
+  // end: function
 }
 
 export function use(cfg) {

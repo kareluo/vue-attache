@@ -38,7 +38,12 @@ export default class ApiAttache {
       if (debug) {
         i('begin:', component)
       }
-      await invoke(component, this.config.begin)
+      if (this.config.begin) {
+        if (debug) {
+          i('begin-call')
+        }
+        await invoke(component, this.config.begin)
+      }
       
       if (debug) {
         i('before-fetch:', args)
@@ -61,7 +66,12 @@ export default class ApiAttache {
     if (debug) {
       i('end')
     }
-    await invoke(component, this.config.end)
+    if (this.config.end) {
+      if (debug) {
+        i('end-call')
+      } 
+      await invoke(component, this.config.end)
+    }
   }
 
   async beforeFetch({ component = this.component, args }) {
@@ -142,6 +152,6 @@ export default class ApiAttache {
     if (this.config.debug) {
       e(exception)
     }
-    // TODO
+    this.config.error(exception)
   }
 }
