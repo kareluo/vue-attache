@@ -54,14 +54,14 @@ export default class ApiAttache {
         i('after-fetch:', b.response)
       }
       await this.afterFetch(b)
-
-      if (debug) {
-        i('end')
-      }
-      await invoke(component, this.config.end)
     } catch (e) {
       this.error(e)
     }
+
+    if (debug) {
+      i('end')
+    }
+    await invoke(component, this.config.end)
   }
 
   async beforeFetch({ component = this.component, args }) {
@@ -117,12 +117,21 @@ export default class ApiAttache {
       if (datanames && Array.isArray(datanames)) {
         if (config.debug) {
           datanames.forEach(name => {
-            i('after-fetch-datanames:', `${name} <-`, dat)
-            component[name] = dat[name]
+            if (typeof name === 'object') {
+              i('after-fetch-datanames:', `${name.name} <-`, dat[name.key])
+              component[name.name] = dat[name.key]
+            } else {
+              i('after-fetch-datanames:', `${name} <-`, dat[name])
+              component[name] = dat[name]
+            }
           })
         } else {
           datanames.forEach(name => {
-            component[name] = dat[name]
+            if (typeof name === 'object') {
+              component[name.name] = dat[name.key]
+            } else {
+              component[name] = dat[name]
+            }
           })
         }
       }

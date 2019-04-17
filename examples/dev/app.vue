@@ -19,7 +19,11 @@ export default {
   configs: [{
     url: '/hello',
     trigger: 'hello',
-    datanames: ['message'],
+    dataname: 'message',
+    datanames: [{
+      name: 'message',
+      key: 'message'
+    }],
   }],
   methods: {
   },
