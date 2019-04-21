@@ -1,19 +1,18 @@
 const fs = require('fs')
 const path = require('path')
 
-const examples = path.join(__dirname, 'examples')
-
+const src = path.join(__dirname, 'src')
 const __build__ = '__build__'
 
 const PAGE = {
   title: 'Vue Attache Example',
-  template: path.join(examples, 'index.html'),
+  template: path.join(src, 'index.html'),
   chunks: ['chunk-vendors', 'chunk-common']
 }
 
-const pages = fs.readdirSync(examples).reduce((pages, dir) => {
+const pages = fs.readdirSync(src).reduce((pages, dir) => {
   if (dir !== __build__) {
-    const fullPath = path.join(examples, dir)
+    const fullPath = path.join(src, dir)
     const entry = path.join(fullPath, 'main.js')
     if (fs.statSync(fullPath).isDirectory() && fs.existsSync(entry)) {
       const page = Object.create(PAGE)
@@ -31,23 +30,18 @@ const pages = fs.readdirSync(examples).reduce((pages, dir) => {
 }, {
   index: {
     ...PAGE,
-    entry: `${examples}/main.js`,
+    entry: `${src}/main.js`,
     chunks: ['chunk-vendors', 'chunk-common', 'index']
   }
 })
 
-console.log(pages)
-
 module.exports = {
-
-  outputDir: `${examples}/${__build__}`,
-
+  outputDir: path.join(__dirname, __build__),
   pages,
-
   configureWebpack: {
     resolve: {
       alias: {
-        'vue-attache': path.join(__dirname, 'src')
+        'vue-attache': path.join(__dirname, '../src')
       }
     },
   },

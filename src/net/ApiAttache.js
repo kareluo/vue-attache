@@ -1,13 +1,5 @@
-import { log, error } from '../utils/log'
+import { i, e } from '../utils/log'
 import { apply, invoke } from '../utils/invoke'
-
-function i(...messages) {
-  log('[api-attache]', ...messages)
-}
-
-function e(...errors) {
-  error('[api-attache]', ...errors)
-}
 
 export default class ApiAttache {
   constructor(config) {
@@ -44,7 +36,7 @@ export default class ApiAttache {
         }
         await invoke(component, this.config.begin)
       }
-      
+
       if (debug) {
         i('before-fetch:', args)
       }

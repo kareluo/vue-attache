@@ -1,6 +1,6 @@
 {
   "name": "vue-attache",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An attache for Vue.js, network, and so on.",
   "main": "src/index.js",
   "repository": {
@@ -13,8 +13,12 @@
     "dev-cli": "webpack --config examples/webpack.config.js --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "vue-attache": "bin/vue-attache"
+  },
   "keywords": [
-    "vue", "vue-attache"
+    "vue",
+    "vue-attache"
   ],
   "author": "Felix Zhang",
   "license": "MIT",
@@ -38,6 +42,7 @@
     "eslint-plugin-vue": "^5.2.2",
     "express": "^4.16.4",
     "express-urlrewrite": "^1.2.0",
+    "request": "^2.88.0",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.0",
     "vue-router": "^3.0.2",
