@@ -37,12 +37,5 @@ const pages = fs.readdirSync(src).reduce((pages, dir) => {
 
 module.exports = {
   outputDir: path.join(__dirname, __build__),
-  pages,
-  configureWebpack: {
-    resolve: {
-      alias: {
-        'vue-attache': path.join(__dirname, '../src')
-      }
-    },
-  },
+  pages
 }

@@ -8,13 +8,10 @@
     "url": "git@github.com:kareluo/vue-attache.git"
   },
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "dev-cli": "webpack --config examples/webpack.config.js --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "vue-attache": "bin/vue-attache"
+    "vue-attache": "bin/vue-attache.js"
   },
   "keywords": [
     "vue",
@@ -24,31 +21,10 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.0",
-    "@vue/cli-plugin-babel": "^3.5.1",
-    "@vue/cli-plugin-eslint": "^3.5.1",
-    "@vue/cli-service": "^3.5.1",
-    "axios": "^0.18.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-flow-vue": "^1.0.0",
     "css-loader": "^2.1.1",
     "es6-promise": "^4.2.6",
     "eslint": "^5.15.3",
     "eslint-plugin-vue": "^5.2.2",
-    "express": "^4.16.4",
-    "express-urlrewrite": "^1.2.0",
-    "request": "^2.88.0",
-    "vue": "^2.6.10",
-    "vue-loader": "^15.7.0",
-    "vue-router": "^3.0.2",
-    "vue-template-compiler": "^2.6.10",
-    "vuepress": "^0.14.10",
-    "vuepress-theme-vue": "^1.1.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-middleware": "^3.6.1"

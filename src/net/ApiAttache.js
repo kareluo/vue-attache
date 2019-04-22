@@ -67,18 +67,33 @@ export default class ApiAttache {
   }
 
   async beforeFetch({ component = this.component, args }) {
-    const url = await apply(component, this.config.url, args)
-    const data = await apply(component, this.config.data, args)
-    return { component, url, data }
+    const result = { component }
+    const { url, params, body, headers } = this.config
+
+    if (url) {
+      result.url = await apply(component, url, args)
+    }
+    if (params) {
+      result.params = await apply(component, params, args)
+    }
+    if (body) {
+      result.body = await apply(component, body, args)
+    }
+    if (headers) {
+      result.headers = await apply(component, headers, args)
+    }
+
+    return result
   }
 
-  async fetch({ component = this.component, url, data }) {
+  async fetch({ component = this.component, url, params, body, headers }) {
     const fetch = this.config.fetch
     const request = {
       url,
-      data,
-      method: this.config.method,
-      headers: this.config.headers
+      params,
+      body,
+      headers,
+      method: this.config.method
     }
 
     if (this.config.debug) {

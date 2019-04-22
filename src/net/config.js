@@ -13,6 +13,12 @@ const config = {
    */
   method: 'get',
 
+  // params: {}
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  // body: {}
+
   /**
    * 是否显示 Loading
    */
