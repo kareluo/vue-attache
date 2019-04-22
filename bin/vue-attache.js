@@ -15,10 +15,9 @@ while (argvs.length > 0) {
   }
 }
 
-console.log(env)
-
 if (env.jsonFile) {
   const data = fs.readFileSync(env.jsonFile)
-  const sv2 = new SwaggerV2(data)
-  console.log(sv2)
+  const swaggerV2 = new SwaggerV2(data)
+  const configs = swaggerV2.configs()
+  console.log(configs)
 }
