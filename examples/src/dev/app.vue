@@ -8,6 +8,7 @@
 
 <script>
 /* eslint-disable */
+import { hello } from './net/configs'
 
 export default {
   data() {
@@ -17,13 +18,7 @@ export default {
     }
   },
   configs: [{
-    url: '/hello',
-    trigger: 'hello',
-    dataname: 'message',
-    datanames: [{
-      key: 'message',
-      value: 'message'
-    }],
+    ...hello
   }],
   methods: {
   },

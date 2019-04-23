@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const SwaggerV2 = require('../lib/SwaggerV2')
+const util = require('../lib/util')
 
 const env = {}
 const argvs = process.argv
@@ -23,8 +24,8 @@ if (env.jsonFile) {
   const swaggerV2 = new SwaggerV2(data)
   const configs = swaggerV2.configs()
 
-  if (env.outFile) {
-    fs.writeFileSync(env.outFile, JSON.stringify(configs, null, 2))
-  }
   console.log(configs)
+  if (env.outFile) {
+    fs.writeFileSync(env.outFile, configs)
+  }
 }

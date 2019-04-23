@@ -26,6 +26,10 @@ const config = {
 
   // data: object, function, promise
 
+  // paths
+  // path
+  // urls
+  // parts
   // url: string, function, promise
 
   // trigger: ''
