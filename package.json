@@ -8,6 +8,7 @@
     "url": "git@github.com:kareluo/vue-attache.git"
   },
   "scripts": {
+    "build": "./node_modules/.bin/babel src --out-dir lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
@@ -20,28 +21,9 @@
   "author": "Felix Zhang",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "css-loader": "^2.1.1",
-    "es6-promise": "^4.2.6",
-    "eslint": "^5.15.3",
-    "eslint-plugin-vue": "^5.2.2",
-    "jest": "^24.7.1",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-middleware": "^3.6.1"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "eslint": "^5.15.3"
   }
 }

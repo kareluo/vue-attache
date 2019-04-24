@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs')
-const SwaggerV2 = require('../lib/SwaggerV2')
+const SwaggerV2 = require('./lib/SwaggerV2')
 
 const env = {}
 const argvs = process.argv
