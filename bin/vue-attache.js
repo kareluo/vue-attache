@@ -2,7 +2,6 @@
 
 const fs = require('fs')
 const SwaggerV2 = require('../lib/SwaggerV2')
-const util = require('../lib/util')
 
 const env = {}
 const argvs = process.argv
@@ -24,8 +23,9 @@ if (env.jsonFile) {
   const swaggerV2 = new SwaggerV2(data)
   const configs = swaggerV2.configs()
 
-  console.log(configs)
   if (env.outFile) {
     fs.writeFileSync(env.outFile, configs)
   }
 }
+
+// vue-attache --json-file /Users/felix/Workshop/work/vue-attache/examples/swagger-api.json --out-file /Users/felix/Workshop/work/vue-attache/examples/src/dev/net/configs.js

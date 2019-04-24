@@ -8,7 +8,9 @@
 
 <script>
 /* eslint-disable */
-import { hello } from './net/configs'
+import {
+  api_his_lottery_receive_post
+} from './net/configs'
 
 export default {
   data() {
@@ -18,7 +20,7 @@ export default {
     }
   },
   configs: [{
-    ...hello
+    ...api_his_lottery_receive_post
   }],
   methods: {
   },
