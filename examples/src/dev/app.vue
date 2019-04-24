@@ -22,6 +22,13 @@ export default {
       code: 123
     },
     url: '/say/{code}/message',
+    query: function () {
+      return new Promise((resolve, reject) => {
+        resolve({
+          asd: 132
+        })
+      })
+    },
     method: 'post',
     trigger: 'hello',
     dataname: 'data',

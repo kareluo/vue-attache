@@ -1,28 +1,15 @@
+import { isFunction } from './util'
 
 export async function apply(that, method, args) {
-  if (!method) return
-  let result = method
-  // eslint-disable-next-line
-  while(true) {
-    if (typeof result === 'function') {
-      result = result.apply(that, args)
-    } else if (result instanceof Promise) {
-      result = await result
-    } else break
+  if (isFunction(method)) {
+    return await method.apply(that, args)
   }
-  return result
+  return method
 }
 
 export async function invoke(that, method, ...args) {
-  if (!method) return
-  let result = method
-  // eslint-disable-next-line
-  while(true) {
-    if (typeof result === 'function') {
-      result = result.call(that, ...args)
-    } else if (result instanceof Promise) {
-      result = await result
-    } else break
+  if (isFunction(method)) {
+    return await method.call(that, ...args)
   }
-  return result
+  return method
 }

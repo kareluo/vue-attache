@@ -13,19 +13,16 @@ const config = {
    */
   method: 'get',
 
-  // param: {}
-  // query: {}
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  // body: {}
+  // param: object, function
+  // query: object, function
+  // header: object, function
+  // body: object, function
+  // url: string, function
 
   /**
    * 是否显示 Loading
    */
   loading: false,
-
-  // url: string, function, promise
 
   // trigger: ''
 

@@ -73,6 +73,7 @@ export default class ApiAttache {
     }
 
     if (param) {
+      result.param = await apply(component, param, args)
       const url = result.url
       const reg = /\{([A-Za-z_]\w*)\}/g
       const matches = []
@@ -83,10 +84,9 @@ export default class ApiAttache {
       }
       if (matches.length > 0) {
         result.url = matches.reduce((u, m) => {
-          return u.replace(m[0], param[m[1]])
+          return u.replace(m[0], result.param[m[1]])
         }, url)
       }
-      result.param = param
     }
 
     if (query) {
