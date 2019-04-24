@@ -86,6 +86,7 @@ export default class ApiAttache {
           return u.replace(m[0], param[m[1]])
         }, url)
       }
+      result.param = param
     }
 
     if (query) {
@@ -103,13 +104,14 @@ export default class ApiAttache {
     return result
   }
 
-  async fetch({ component = this.component, url, params, body, headers }) {
+  async fetch({ component = this.component, url, param, query, body, header }) {
     const fetch = this.config.fetch
     const request = {
       url,
-      params,
+      param,
+      query,
       body,
-      headers,
+      header,
       method: this.config.method
     }
 
