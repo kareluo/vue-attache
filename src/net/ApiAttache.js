@@ -15,11 +15,9 @@ export default class ApiAttache {
       const that = this
       component[trigger] = async function (...args) {
         apply(that, trig, [component].concat(args))
-        .then(() => {
-          if (fn) {
-            fn.apply(component, args)
-          }
-        })
+        if (fn) {
+          fn.apply(component, args)
+        }
       }
     }
   }
@@ -68,19 +66,38 @@ export default class ApiAttache {
 
   async beforeFetch({ component = this.component, args }) {
     const result = { component }
-    const { url, params, body, headers } = this.config
+    const { url, param, query, body, header } = this.config
 
     if (url) {
       result.url = await apply(component, url, args)
     }
-    if (params) {
-      result.params = await apply(component, params, args)
+
+    if (param) {
+      const url = result.url
+      const reg = /\{([A-Za-z_]\w*)\}/g
+      const matches = []
+      let match = reg.exec(url)
+      while (match) {
+        matches.push(match)
+        match = reg.exec(url)
+      }
+      if (matches.length > 0) {
+        result.url = matches.reduce((u, m) => {
+          return u.replace(m[0], param[m[1]])
+        }, url)
+      }
     }
+
+    if (query) {
+      result.query = await apply(component, query, args)
+    }
+
     if (body) {
       result.body = await apply(component, body, args)
     }
-    if (headers) {
-      result.headers = await apply(component, headers, args)
+
+    if (header) {
+      result.header = await apply(component, header, args)
     }
 
     return result

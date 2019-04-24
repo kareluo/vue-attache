@@ -13,7 +13,8 @@ const config = {
    */
   method: 'get',
 
-  // params: {}
+  // param: {}
+  // query: {}
   headers: {
     'Content-Type': 'application/json',
   },
@@ -24,12 +25,6 @@ const config = {
    */
   loading: false,
 
-  // data: object, function, promise
-
-  // paths
-  // path
-  // urls
-  // parts
   // url: string, function, promise
 
   // trigger: ''

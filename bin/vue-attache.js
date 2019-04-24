@@ -12,7 +12,7 @@ while (argvs.length > 0) {
     case '--json-file':
       env.jsonFile = argvs.shift()
       break
-    case '--out-file':
+    case '--output-file':
       env.outFile = argvs.shift()
       break
   }
@@ -28,4 +28,4 @@ if (env.jsonFile) {
   }
 }
 
-// vue-attache --json-file /Users/felix/Workshop/work/vue-attache/examples/swagger-api.json --out-file /Users/felix/Workshop/work/vue-attache/examples/src/dev/net/configs.js
+// vue-attache --json-file /Users/felix/Workshop/work/vue-attache/examples/swagger-api.json --output-file /Users/felix/Workshop/work/vue-attache/examples/src/dev/net/configs.js

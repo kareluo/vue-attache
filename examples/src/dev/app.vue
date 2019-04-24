@@ -8,9 +8,7 @@
 
 <script>
 /* eslint-disable */
-import {
-  api_his_lottery_receive_post
-} from './net/configs'
+import { hello } from './net/configs'
 
 export default {
   data() {
@@ -20,7 +18,14 @@ export default {
     }
   },
   configs: [{
-    ...api_his_lottery_receive_post
+    param: {
+      code: 123
+    },
+    url: '/say/{code}/message',
+    method: 'post',
+    trigger: 'hello',
+    dataname: 'data',
+    datanames: ['message'],
   }],
   methods: {
   },
