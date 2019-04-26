@@ -3,19 +3,18 @@ import Config, { use } from './net/config'
 import ApiAttache from './net/ApiAttache'
 
 export default class Attache {
-
-  constructor({ configs, config }) {
+  constructor ({ configs, config }) {
     this.configs = configs
     this.config = Object.assign(Object.create(Config), config)
     this.attaches = []
   }
 
-  setConfigs(configs) {
+  setConfigs (configs) {
     // TODO 清理attaches
     this.configs = configs
   }
 
-  setup(component) {
+  setup (component) {
     if (!this.configs) return
     this.configs.forEach(cfg => {
       const config = Object.assign(Object.create(this.config), cfg)
@@ -25,7 +24,7 @@ export default class Attache {
     })
   }
 
-  use(config) {
+  use (config) {
     Object.assign(this.config, config)
   }
 }

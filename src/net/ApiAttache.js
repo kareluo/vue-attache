@@ -2,11 +2,11 @@ import { i, e } from '../utils/log'
 import { apply, invoke } from '../utils/invoke'
 
 export default class ApiAttache {
-  constructor(config) {
+  constructor (config) {
     this.config = config
   }
 
-  setup(component) {
+  setup (component) {
     this.component = component
     const { trigger } = this.config
     if (trigger && typeof trigger === 'string') {
@@ -22,7 +22,7 @@ export default class ApiAttache {
     }
   }
 
-  async trig(component = this.component, ...args) {
+  async trig (component = this.component, ...args) {
     const debug = this.config.debug
     try {
       if (debug) {
@@ -59,12 +59,12 @@ export default class ApiAttache {
     if (this.config.end) {
       if (debug) {
         i('end-call')
-      } 
+      }
       await invoke(component, this.config.end)
     }
   }
 
-  async beforeFetch({ component = this.component, args }) {
+  async beforeFetch ({ component = this.component, args }) {
     const result = { component }
     const { url, param, query, body, header } = this.config
 
@@ -104,7 +104,7 @@ export default class ApiAttache {
     return result
   }
 
-  async fetch({ component = this.component, url, param, query, body, header }) {
+  async fetch ({ component = this.component, url, param, query, body, header }) {
     const fetch = this.config.fetch
     const request = {
       url,
@@ -122,7 +122,7 @@ export default class ApiAttache {
     return { component, response }
   }
 
-  async afterFetch({ component = this.component, response }) {
+  async afterFetch ({ component = this.component, response }) {
     const config = this.config
 
     const { success, data } = await invoke(component, config.response, response)
@@ -174,7 +174,7 @@ export default class ApiAttache {
     }
   }
 
-  error(exception) {
+  error (exception) {
     if (this.config.debug) {
       e(exception)
     }
