@@ -2,14 +2,13 @@
   "name": "vue-attache",
   "version": "0.0.4",
   "description": "An attache for Vue.js, network, and so on.",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:kareluo/vue-attache.git"
   },
   "scripts": {
-    "build": "webpack",
-    "babel": "./node_modules/.bin/babel src --out-dir lib",
+    "build": "./node_modules/.bin/babel src --out-dir lib",
     "eslint": "./node_modules/.bin/eslint ./src --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,19 +22,16 @@
   "author": "Felix Zhang",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
+    "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.3",
-    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.3",
-    "babel-loader": "^8.0.5",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^5.2.2",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.1"
+    "eslint-plugin-vue": "^5.2.2"
   }
 }
