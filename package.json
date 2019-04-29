@@ -8,6 +8,7 @@
     "url": "git@github.com:kareluo/vue-attache.git"
   },
   "scripts": {
+    "dev": "vue-cli-service serve --open",
     "build": "./node_modules/.bin/babel src --out-dir lib",
     "eslint": "./node_modules/.bin/eslint ./src --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,12 +27,24 @@
     "@babel/core": "^7.4.3",
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.3",
+    "@vue/cli-plugin-babel": "^3.7.0",
+    "@vue/cli-plugin-eslint": "^3.7.0",
+    "@vue/cli-service": "^3.7.0",
+    "axios": "^0.18.0",
+    "babel-eslint": "^10.0.1",
+    "element-ui": "^2.8.2",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^5.2.2"
+    "eslint-plugin-vue": "^5.2.2",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "lodash": "^4.17.11",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.6",
+    "vue-template-compiler": "^2.6.10"
   }
 }

@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const src = path.join(__dirname, 'src')
+const src = path.join(__dirname, 'examples')
 const __build__ = '__build__'
 
 const PAGE = {
