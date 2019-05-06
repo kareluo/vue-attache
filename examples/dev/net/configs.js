@@ -1,255 +1,179 @@
 /**
- * 核销
+ * user
  */
-export const api_his_lottery_receive_post = {
-  method: 'post',
-  url: '/api/his/lottery/receive'
-}
-
-/**
- * 奖品记录
- */
-export const api_his_lottery_userId_history_get = {
+export const ajax_user_get = {
   method: 'get',
-  url: '/api/his/lottery/{userId}/history'
+  url: '/ajax/user'
 }
 
 /**
- * 生成qrcode的个数
+ * user2
  */
-export const api_qrcode_count_get = {
+export const ajax_user2_get = {
   method: 'get',
-  url: '/api/qrcode/count'
+  url: '/ajax/user2'
 }
 
 /**
- * 生成qrcode
+ * 新增城市
  */
-export const api_qrcode_size_get = {
+export const api_admin_city_post = {
+  method: 'post',
+  url: '/api/admin/city',
+  param: function anonymous({ form }
+) {
+return arguments[0]
+}
+}
+/**
+ * 删除城市
+ */
+export const api_admin_city_delete = {
+  method: 'delete',
+  url: '/api/admin/city',
+  param: function anonymous({ id }
+) {
+return arguments[0]
+}
+}
+
+/**
+ * 城市列表
+ */
+export const api_admin_city_list_get = {
   method: 'get',
-  url: '/api/qrcode/{size}'
+  url: '/api/admin/city/list'
 }
 
 /**
- * 获取微信sessionKey
+ * 启用或禁用城市
  */
-export const api_wxapp_authorize_post = {
+export const api_admin_city_cityId_enable_post = {
   method: 'post',
-  url: '/api/wxapp/authorize'
+  url: '/api/admin/city/{cityId}/enable',
+  param: function anonymous({ enable }
+) {
+return arguments[0]
+}
 }
 
 /**
- * 签到
+ * 新增导航
  */
-export const api_wxapp_checkin_post = {
+export const api_admin_navigation_post = {
   method: 'post',
-  url: '/api/wxapp/checkin'
+  url: '/api/admin/navigation',
+  param: function anonymous({ form }
+) {
+return arguments[0]
+}
 }
 
 /**
- * 获取签到code
+ * 导航关联城市列表
  */
-export const api_wxapp_checkin_code_post = {
-  method: 'post',
-  url: '/api/wxapp/checkin/code'
-}
-
-/**
- * 获取签到状态
- */
-export const api_wxapp_checkin_status_post = {
-  method: 'post',
-  url: '/api/wxapp/checkin/status'
-}
-
-/**
- * 发送短信验证码
- */
-export const api_wxapp_code_post = {
-  method: 'post',
-  url: '/api/wxapp/code'
-}
-
-/**
- * 更新用户手机号
- */
-export const api_wxapp_code_phone_post = {
-  method: 'post',
-  url: '/api/wxapp/code/phone'
-}
-
-/**
- * 领取药箱首页
- */
-export const api_wxapp_drug_box_home_get = {
+export const api_admin_navigation_city_list_get = {
   method: 'get',
-  url: '/api/wxapp/drug/box/home'
+  url: '/api/admin/navigation/city/list',
+  param: function anonymous({ id }
+) {
+return arguments[0]
 }
-
-/**
- * 抽奖
- */
-export const api_wxapp_drug_lottery_get = {
-  method: 'get',
-  url: '/api/wxapp/drug/lottery'
 }
-
 /**
- * 首页
+ * 导航关联城市列表修改
  */
-export const api_wxapp_drug_lottery_home_get = {
-  method: 'get',
-  url: '/api/wxapp/drug/lottery/home'
-}
-
-/**
- * 添加抽奖
- */
-export const api_wxapp_drug_lottery_times_times_post = {
+export const api_admin_navigation_city_list_post = {
   method: 'post',
-  url: '/api/wxapp/drug/lottery/times/{times}'
+  url: '/api/admin/navigation/city/list',
+  param: function anonymous({ form }
+) {
+return arguments[0]
+}
 }
 
 /**
- * 埋点数据上报
+ * 导航聚合列表
  */
-export const api_wxapp_event_track_post = {
+export const api_admin_navigation_list_get = {
+  method: 'get',
+  url: '/api/admin/navigation/list'
+}
+
+/**
+ * 导航关联用户画像列表
+ */
+export const api_admin_navigation_portrait_list_get = {
+  method: 'get',
+  url: '/api/admin/navigation/portrait/list',
+  param: function anonymous({ id }
+) {
+return arguments[0]
+}
+}
+/**
+ * 导航关联用户画像修改
+ */
+export const api_admin_navigation_portrait_list_post = {
   method: 'post',
-  url: '/api/wxapp/event/track'
+  url: '/api/admin/navigation/portrait/list',
+  param: function anonymous({ form }
+) {
+return arguments[0]
+}
+}
+
+/**
+ * 删除用户画像
+ */
+export const api_admin_portrait_post = {
+  method: 'post',
+  url: '/api/admin/portrait',
+  param: function anonymous({ portrait }
+) {
+return arguments[0]
+}
+}
+/**
+ * 新增用户画像
+ */
+export const api_admin_portrait_delete = {
+  method: 'delete',
+  url: '/api/admin/portrait',
+  param: function anonymous({ id }
+) {
+return arguments[0]
+}
+}
+
+/**
+ * 用户画像列表
+ */
+export const api_admin_portrait_list_get = {
+  method: 'get',
+  url: '/api/admin/portrait/list'
+}
+
+/**
+ * 更新用户画像状态
+ */
+export const api_admin_portrait_portraitId_enable_post = {
+  method: 'post',
+  url: '/api/admin/portrait/{portraitId}/enable',
+  param: function anonymous({ enable }
+) {
+return arguments[0]
+}
 }
 
 /**
  * 图片签名
  */
-export const api_wxapp_filecloud_sign_get = {
+export const api_admin_sign_get = {
   method: 'get',
-  url: '/api/wxapp/filecloud/sign'
+  url: '/api/admin/sign',
+  param: function anonymous({ loginId }
+) {
+return arguments[0]
 }
-
-/**
- * formId上报
- */
-export const api_wxapp_formid_post = {
-  method: 'post',
-  url: '/api/wxapp/formid'
-}
-
-/**
- * 门诊检查报告单
- */
-export const api_wxapp_his_reports_get = {
-  method: 'get',
-  url: '/api/wxapp/his/reports'
-}
-
-/**
- * 获取首页数据
- */
-export const api_wxapp_home_get = {
-  method: 'get',
-  url: '/api/wxapp/home'
-}
-
-/**
- * 城市数据
- */
-export const api_wxapp_home_city_get = {
-  method: 'get',
-  url: '/api/wxapp/home/city'
-}
-
-/**
- * 门诊地址
- */
-export const api_wxapp_home_clinicAddress_post = {
-  method: 'post',
-  url: '/api/wxapp/home/clinicAddress'
-}
-
-/**
- * 创建通知信息
- */
-export const api_wxapp_home_notify_post = {
-  method: 'post',
-  url: '/api/wxapp/home/notify'
-}
-
-/**
- * 终端地址
- */
-export const api_wxapp_home_tabletAddress_post = {
-  method: 'post',
-  url: '/api/wxapp/home/tabletAddress'
-}
-
-/**
- * log上报
- */
-export const api_wxapp_log_post = {
-  method: 'post',
-  url: '/api/wxapp/log'
-}
-
-/**
- * 抽奖记录
- */
-export const api_wxapp_lottery_receive_get = {
-  method: 'get',
-  url: '/api/wxapp/lottery/receive'
-}
-
-/**
- * 模拟Authorize
- */
-export const api_wxapp_mock_authorize_post = {
-  method: 'post',
-  url: '/api/wxapp/mock/authorize'
-}
-
-/**
- * 更新用户手机号
- */
-export const api_wxapp_phone_post = {
-  method: 'post',
-  url: '/api/wxapp/phone'
-}
-
-/**
- * 获取元气值
- */
-export const api_wxapp_score_post = {
-  method: 'post',
-  url: '/api/wxapp/score'
-}
-
-/**
- * 更新userInfo
- */
-export const api_wxapp_userinfo_post = {
-  method: 'post',
-  url: '/api/wxapp/userinfo'
-}
-
-/**
- * 医助历史消息
- */
-export const api_wxapp_xiaoxing_messages_get = {
-  method: 'get',
-  url: '/api/wxapp/xiaoxing/messages'
-}
-
-/**
- * 小杏历史消息
- */
-export const api_wxapp_xx_messages_get = {
-  method: 'get',
-  url: '/api/wxapp/xx/messages'
-}
-
-/**
- * FamilyDoctor Test
- */
-export const test_get = {
-  method: 'get',
-  url: '/test'
 }

@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const SwaggerV2 = require('./lib/SwaggerV2')
+const util = require('./lib/util')
 
 const env = {}
 const argvs = process.argv
@@ -9,23 +10,52 @@ const argvs = process.argv
 while (argvs.length > 0) {
   const argv = argvs.shift()
   switch (argv) {
-    case '--json-file':
-      env.jsonFile = argvs.shift()
-      break
     case '--output-file':
-      env.outFile = argvs.shift()
+      env.outputFile = argvs.shift()
+      break
+    case '--swagger-base-url':
+      env.swaggerBaseUrl = argvs.shift()
+      break
+    case '--swagger-json-file':
+      env.swaggerJsonFile = argvs.shift()
+      break
+    case '--config-file':
+      env.configFile = argvs.shift()
+      break
+    case '-h':
+    case '--help':
       break
   }
 }
 
-if (env.jsonFile) {
-  const data = fs.readFileSync(env.jsonFile)
-  const swaggerV2 = new SwaggerV2(data)
+async function saveSwaggerApi2Configs (api, options) {
+  const swaggerV2 = new SwaggerV2(api, options)
   const configs = swaggerV2.configs()
-
-  if (env.outFile) {
-    fs.writeFileSync(env.outFile, configs)
+  if (env.outputFile) {
+    fs.writeFileSync(env.outputFile, configs)
   }
 }
 
-// vue-attache --json-file /Users/felix/Workshop/work/vue-attache/examples/swagger-api.json --output-file /Users/felix/Workshop/work/vue-attache/examples/src/dev/net/configs.js
+async function fetchSwaggerApis2Configs (baseUrl, options) {
+  const apis = util.fetchSwaggerApis(baseUrl)
+  while (true) {
+    const api = await apis.next()
+    const { value, done } = api
+    if (value) {
+      await saveSwaggerApi2Configs(value, options)
+    }
+    if (done) break
+  }
+}
+
+const options = require(env.configFile || './vue-attache.config.js')
+env.swaggerBaseUrl = env.swaggerBaseUrl || options.swaggerBaseUrl
+env.swaggerJsonFile = env.swaggerJsonFile || options.swaggerJsonFile
+env.outputFile = env.outputFile || options.outputFile
+
+if (env.swaggerBaseUrl) {
+  fetchSwaggerApis2Configs(env.swaggerBaseUrl, options)
+} else if (env.swaggerJsonFile) {
+  const data = fs.readFileSync(env.swaggerJsonFile)
+  saveSwaggerApi2Configs(JSON.parse(data), options)
+}

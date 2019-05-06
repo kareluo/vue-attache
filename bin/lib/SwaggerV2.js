@@ -1,16 +1,15 @@
-const SwaggerApi = require('./SwaggerApi')
+const SwaggerV2Api = require('./SwaggerV2Api')
 
 module.exports = class SwaggerV2 {
-  constructor(json) {
-    this.docs = JSON.parse(json)
+  constructor(docs, options) {
+    this.docs = docs
+    this.options = options
     this._init()
   }
 
   _init() {
     this.apis = Object.keys(this.docs.paths).map(path => {
-      return new SwaggerApi(path, this.docs, {
-        excludes: ['token', 'loginId']
-      })
+      return new SwaggerV2Api(path, this.docs, this.options)
     })
   }
 
