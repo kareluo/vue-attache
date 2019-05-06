@@ -2,7 +2,7 @@ const request = require('request');
 
 module.exports.log = function (...messages) {
   // Debuging
-  console.log(...messages)
+  // console.log(...messages)
 }
 
 module.exports.isFunction = function (func) {

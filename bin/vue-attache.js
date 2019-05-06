@@ -3,6 +3,7 @@
 const fs = require('fs')
 const SwaggerV2 = require('./lib/SwaggerV2')
 const util = require('./lib/util')
+const prettier = require("prettier");
 
 const env = {}
 const argvs = process.argv
@@ -32,7 +33,11 @@ async function saveSwaggerApi2Configs (api, options) {
   const swaggerV2 = new SwaggerV2(api, options)
   const configs = swaggerV2.configs()
   if (env.outputFile) {
-    fs.writeFileSync(env.outputFile, configs)
+    const content = prettier.format(configs.replace(/anonymous/g, ''), {
+      semi: false,
+      parser: "babel"
+    });
+    fs.writeFileSync(env.outputFile, content)
   }
 }
 
