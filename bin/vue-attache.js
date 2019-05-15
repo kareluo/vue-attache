@@ -1,66 +1,20 @@
 #!/usr/bin/env node
 
-const fs = require('fs')
-const SwaggerV2 = require('./lib/SwaggerV2')
-const util = require('./lib/util')
-const prettier = require("prettier");
+const program = require('commander');
 
-const env = {}
-const argvs = process.argv
+program
+  .version(require('../package.json').version, '-v, --version')
+  .usage('<command> [options]');
 
-while (argvs.length > 0) {
-  const argv = argvs.shift()
-  switch (argv) {
-    case '--output-file':
-      env.outputFile = argvs.shift()
-      break
-    case '--swagger-base-url':
-      env.swaggerBaseUrl = argvs.shift()
-      break
-    case '--swagger-json-file':
-      env.swaggerJsonFile = argvs.shift()
-      break
-    case '--config-file':
-      env.configFile = argvs.shift()
-      break
-    case '-h':
-    case '--help':
-      break
-  }
-}
+program
+  .option('--config-file <path>', 'Vue Attache config file');
 
-async function saveSwaggerApi2Configs (api, options) {
-  const swaggerV2 = new SwaggerV2(api, options)
-  const configs = swaggerV2.configs()
-  if (env.outputFile) {
-    const content = prettier.format(configs.replace(/anonymous/g, ''), {
-      semi: false,
-      parser: "babel"
-    });
-    fs.writeFileSync(env.outputFile, content)
-  }
-}
+program
+  .command('generate')
+  .description('generate vue attache config')
+  .action(require('./vue-attache-generate'))
+  .option('--swagger-json-file <path>', 'Swagger json file')
+  .option('--swagger-base-url <url>', 'Swagger base url')
+  .option('--output-file <path>', 'Vue Attache output js file');
 
-async function fetchSwaggerApis2Configs (baseUrl, options) {
-  const apis = util.fetchSwaggerApis(baseUrl)
-  while (true) {
-    const api = await apis.next()
-    const { value, done } = api
-    if (value) {
-      await saveSwaggerApi2Configs(value, options)
-    }
-    if (done) break
-  }
-}
-
-const options = require(env.configFile || './vue-attache.config.js')
-env.swaggerBaseUrl = env.swaggerBaseUrl || options.swaggerBaseUrl
-env.swaggerJsonFile = env.swaggerJsonFile || options.swaggerJsonFile
-env.outputFile = env.outputFile || options.outputFile
-
-if (env.swaggerBaseUrl) {
-  fetchSwaggerApis2Configs(env.swaggerBaseUrl, options)
-} else if (env.swaggerJsonFile) {
-  const data = fs.readFileSync(env.swaggerJsonFile)
-  saveSwaggerApi2Configs(JSON.parse(data), options)
-}
+program.parse(process.argv);

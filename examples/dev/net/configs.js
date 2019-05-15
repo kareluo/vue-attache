@@ -20,7 +20,7 @@ export const ajax_user2_get = {
 export const api_admin_city_post = {
   method: "post",
   url: "/api/admin/city",
-  body: function(body) {
+  body() {
     return body
   }
 }
